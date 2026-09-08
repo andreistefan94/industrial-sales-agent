@@ -21,6 +21,11 @@ _PRICING = _read("pricing.json")
 
 @tool
 def get_customer(email: str) -> dict:
+    """
+    Look up a customer by their email address (the sender of the received message) and return
+    customer_id, name, and price level. If the address does not match any known customer,
+    return a dict with the key "error".
+    """
     normalized_email = email.strip().lower()
     for customer in _CUSTOMERS:
         if customer["email"].lower() == normalized_email:
@@ -30,6 +35,12 @@ def get_customer(email: str) -> dict:
 
 @tool
 def find_equipment(model: str | None = None, serial_number: str | None = None) -> list[dict]:
+    """
+    Search for equipment by model and/or serial number. At least one of the two parameters
+    must be provided. If only the model is given and there are multiple pieces of equipment
+    with that model (different serial numbers), return all candidate results -- the caller
+    (agent or operator) decides how to resolve the ambiguity, not the tool. If the serial number is also given, the search is exact.
+    """
     equipments = []
     for equipment in _EQUIPMENT:
         if model is not None and equipment["model"].lower() != model.strip().lower():
@@ -42,6 +53,14 @@ def find_equipment(model: str | None = None, serial_number: str | None = None) -
 
 @tool
 def search_parts(query: str, equipment_id: str | None = None) -> list[dict]:
+    """
+    Search for parts by simple keywords (in the part name and in its aliases -- the informal terms
+    that clients use to describe the part, e.g. "oil filter"). The search is literal on words, 
+    it does NOT understand synonyms outside of the aliases already listed. If equipment_id is given, 
+    the results are filtered to parts compatible with that equipment's model. 
+    It may return 0, 1, or multiple candidate parts -- an empty list means the part does not exist in the catalog for that query/model, 
+    multiple results mean real ambiguity (e.g. two types of oil filter), not a search error.
+    """
     equipment_model = None
     if equipment_id is not None:
         equipment = next((e for e in _EQUIPMENT if e["equipment_id"] == equipment_id), None)
@@ -63,6 +82,11 @@ def search_parts(query: str, equipment_id: str | None = None) -> list[dict]:
 
 @tool
 def check_stock(part_number: str, quantity: int) -> dict:
+    """
+    Check if the available stock for a part number covers the requested quantity.
+    Returns available (bool), quantity_available, and quantity_requested. If the part_number
+    does not exist, returns a dict with the key "error".
+    """
     if part_number not in _INVENTORY:
         return {"error": f"Part number '{part_number}' doesn't exist."}
     quantity_available = _INVENTORY[part_number]
@@ -76,6 +100,12 @@ def check_stock(part_number: str, quantity: int) -> dict:
 
 @tool
 def get_price(part_number: str, customer_id: str, quantity: int) -> dict:
+    """
+    Calculate the total price for a quantity of a part, for a specific customer (the customer's price level determines the discount applied). 
+    Prices come EXCLUSIVELY from pricing.json -- this tool is the only source of truth for price, 
+    no other node or agent is allowed to calculate or assume a price. If the part_number or customer_id does not exist, 
+    return a dict with the key "error".
+    """
     list_price = _PRICING["list_prices"].get(part_number)
     if list_price is None:
         return {"error": f"Part number '{part_number}' doesn't have listed price."}
