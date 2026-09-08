@@ -1,0 +1,20 @@
+[
+  {
+    "customer_id": "C-001",
+    "name": "Acme Industrial SRL",
+    "email": "achizitii@acme-industrial.ro",
+    "price_level": "standard"
+  },
+  {
+    "customer_id": "C-002",
+    "name": "Nordic Compresoare SA",
+    "email": "service@nordic-compresoare.ro",
+    "price_level": "premium"
+  },
+  {
+    "customer_id": "C-003",
+    "name": "BalticTech Servicii SRL",
+    "email": "piese@baltictech.ro",
+    "price_level": "standard"
+  }
+]

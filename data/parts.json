@@ -1,0 +1,32 @@
+[
+  {
+    "part_number": "P-1042",
+    "name": "Oil Filter 10 μm",
+    "alias": ["filtru de ulei", "filtru ulei", "filtrul de ulei"],
+    "compatible_models": ["ACX-200"]
+  },
+  {
+    "part_number": "P-1047",
+    "name": "Oil Filter 25 μm",
+    "alias": ["filtru de ulei", "filtru ulei", "filtrul de ulei"],
+    "compatible_models": ["ACX-200"]
+  },
+  {
+    "part_number": "G-2210",
+    "name": "Separator Cover Gasket",
+    "alias": ["garnitura capac separator", "garnitura pentru capacul separatorului", "garnitura separator"],
+    "compatible_models": ["ACX-200"]
+  },
+  {
+    "part_number": "P-2005",
+    "name": "Air Filter Element (Heavy Duty)",
+    "alias": ["filtru de aer", "filtrul de aer mare", "filtru aer"],
+    "compatible_models": ["ACX-350"]
+  },
+  {
+    "part_number": "G-3120",
+    "name": "Intake Gasket",
+    "alias": ["garnitura admisie", "garnitura de admisie"],
+    "compatible_models": ["ACX-350"]
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "equipment_id": "EQ-1001",
+    "model": "ACX-200",
+    "serial_number": "SN-48392",
+    "customer_id": "C-001"
+  },
+  {
+    "equipment_id": "EQ-1002",
+    "model": "ACX-200",
+    "serial_number": "SN-77410",
+    "customer_id": "C-002"
+  },
+  {
+    "equipment_id": "EQ-1003",
+    "model": "ACX-350",
+    "serial_number": "SN-10021",
+    "customer_id": "C-001"
+  },
+  {
+    "equipment_id": "EQ-1004",
+    "model": "ACX-350",
+    "serial_number": "SN-10088",
+    "customer_id": "C-003"
+  }
+]
