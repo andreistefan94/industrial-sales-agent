@@ -61,11 +61,11 @@ The code skeleton may include:
 - `test_cases.jsonl` - test cases covering multiple scenarios;
 - `requirements.txt` - project dependencies.
 
+## Workflow execution
 
-Exercises 1, 2 and 3 are some practice for the exercise 4.
+Exercises 1, 2 and 3 are some practice for the next exercise. The exercise 4 try to simulate this workflow for an industrial sales agent. 
 
-The exercise 4 try to simulate this workflow for an industrial sales agent. 
-<img src="data/agent-workflow.png" alt="Industrial sales agent workflow" width="600">
+<img src="data/agent-workflow.jpeg" alt="Industrial sales agent workflow" width="600">
 
 After the message/email is processed and the important info is extracted [View the Python file](exercices/ex1_extraction.py), it identifies the parts.
 Let's assume that the Indentifying Parts Agent [View the Python file](exercices/ex2_agent_react.py) finds 2 candidates and cannot decide safelly. Introduce an interruption which requires human intervantion:
@@ -103,7 +103,6 @@ Pentru compresorul ACX-200, seria SN-48392, am identificat:
 
 Ambele repere sunt disponibile în stoc.
 
-Total: 102 EUR, fără TVA.
+Total: 102 EUR
 ```
 The factual information must be provided from state and tooling results. So, check it in a structured way, DraftValidation class. If the validation fails, the draft is generated only once again. Now, the reply is prepared for sending to the customer
-
