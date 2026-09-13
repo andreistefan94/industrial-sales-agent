@@ -27,7 +27,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from common import BASE_DIR, MODEL, check_stock, get_customer, get_price
-from ex1_extractie import extract_request
+from exercices.ex1_extraction import extract_request
 from ex2_agent_react import IdentificationResult, build_agent, indentify_part
 from schema import PartRequested, RequestState, RequestParts
 

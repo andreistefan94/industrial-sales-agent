@@ -60,3 +60,50 @@ The code skeleton may include:
 - `schema.py` - the main Pydantic types used by the agent;
 - `test_cases.jsonl` - test cases covering multiple scenarios;
 - `requirements.txt` - project dependencies.
+
+
+Exercises 1, 2 and 3 are some practice for the exercise 4.
+
+The exercise 4 try to simulate this workflow for an industrial sales agent. 
+<img src="data/agent-workflow.png" alt="Industrial sales agent workflow" width="600">
+
+After the message/email is processed and the important info is extracted [View the Python file](exercices/ex1_extraction.py), it identifies the parts.
+Let's assume that the Indentifying Parts Agent [View the Python file](exercices/ex2_agent_react.py) finds 2 candidates and cannot decide safelly. Introduce an interruption which requires human intervantion:
+```text
+Echipament: ACX-200 / SN-48392
+
+Clientul a solicitat:
+"filtrul de ulei"
+
+Piese candidate:
+
+1. P-1042 — Oil Filter 10 μm
+2. P-1047 — Oil Filter 25 μm
+```
+The human operator can select the part and cand decide to ask customer for a clarification. For the missing info, the system will prepare an answer:
+```text
+Bună ziua,
+
+Pentru a identifica piesa corectă avem nevoie și de seria echipamentului.
+
+Ne-o puteți transmite, vă rog?
+```
+The workflow execution is waiting...until the customer answer arrives resume the same thread using Command(resume=…), thread_id = request_id, and check the state before and after resumation.
+```text
+Sigur, seria este SN-48392.
+```
+After indetifyng parts and checking the stock price, generate a email draft using LLM call. 
+```text
+Bună ziua,
+
+Pentru compresorul ACX-200, seria SN-48392, am identificat:
+
+* P-1042 — Oil Filter 10 μm — 2 buc.
+* G-2210 — Separator Cover Gasket — 1 buc.
+
+Ambele repere sunt disponibile în stoc.
+
+Total: 102 EUR, fără TVA.
+```
+The factual information must be provided from state and tooling results. So, check it in a structured way, DraftValidation class. If the validation fails, the draft is generated only once again. Now, the reply is prepared for sending to the customer
+

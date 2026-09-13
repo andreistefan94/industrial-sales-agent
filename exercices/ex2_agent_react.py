@@ -20,7 +20,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from common import BASE_DIR, MODEL, find_equipment, search_parts
-from ex1_extractie import extract_request
+from exercices.ex1_extraction import extract_request
 from schema import RequestParts
 
 load_dotenv()
@@ -99,10 +99,10 @@ def build_agent():
         model=ChatGoogleGenerativeAI(model=MODEL, temperature=0),
         tools=[find_equipment, search_parts],
         system_prompt=SYSTEM_PROMPT,
-        # ToolStrategy obliga modelul sa apeleze explicit un tool "de finalizare" cu
-        # schema ceruta, in loc sa lase raspunsul structurat la latitudinea modelului
-        # (AutoStrategy) -- asta a rezolvat in practica bucla in care modelul verifica
-        # la nesfarsit piese deja identificate, in loc sa se opreasca.
+        # ToolStrategy forces the model to explicitly call a "finalization" tool with
+        # the requested schema, instead of leaving the structured response to the model's
+        # discretion (AutoStrategy) -- this solved in practice the loop where the model
+        # kept checking already identified parts, instead of stopping.
         response_format=ToolStrategy(schema=IdentificationResult),
     )
 
