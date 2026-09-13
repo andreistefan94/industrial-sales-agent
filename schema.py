@@ -19,6 +19,7 @@ class RequestParts(BaseModel):
 class RequestState(TypedDict, total=False):
     request_id: str
     email_text: str
+    sender_email: str
     request: dict
     equipment_id: str
     parts: list[dict]
@@ -26,6 +27,7 @@ class RequestState(TypedDict, total=False):
     missing_information: list[str]
     draft_reply: str
     status: str
+    customer_id: str
 
 
 class CheckAnswer(BaseModel):

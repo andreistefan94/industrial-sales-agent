@@ -5,6 +5,14 @@ But the path BETWEEN steps (extraction -> identification -> clarification / huma
     * the price comes EXCLUSIVELY from get_price (check_stock_price_node) -- no LLM node calculates or assumes a price;
     * availability is checked with check_stock before it reaches the offer or the draft;
     * an ambiguous identification (equipment or part) CANNOT reach check_stock_price_node -- route_after_identification explicitly blocks this path, regardless of what the agent from Ex2 "thinks         
+
+NB. The agent from Ex2 is still autonomous in the sense that it can call find_equipment and search_parts in any order, and as many times as it wants, to arrive at an equipment_id and part_numbers. But the path between steps is deterministic code, not left to the model.
+The graph is built with StateGraph, and the nodes are functions that take a RequestState and return a dict with the updated state. 
+The edges are added with add_edge and add_conditional_edges. The graph is compiled with compile, and invoked with invoke.
+Normally, after the human_intervention node, the human will update the state and re-run the graph (interrupt and resume).
+Same for ask_clarification: the human will update the state with the missing information and re-run the graph (interrupt and resume).
+But this is not implemented in this exercise -- the graph is run once, and the final state is printed. 
+The human intervention and clarification are simulated by the test cases, which provide the missing information and re-run the graph.
 """
 
 import json
